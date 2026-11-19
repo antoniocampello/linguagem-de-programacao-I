@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Loja de Videogames - Catálogo de Jogos</h1>
+
+    <section class="card">
+      <h2>Cadastrar Novo Jogo</h2>
+      <form action="/itens" method="POST" class="form-grid">
+        <div class="form-group">
+          <label for="titulo">Título do Jogo</label>
+          <input type="text" id="titulo" name="titulo" placeholder="Ex: God of War Ragnarök" required>
+        </div>
+
+        <div class="form-group">
+          <label for="plataforma">Plataforma</label>
+          <select id="plataforma" name="plataforma" required>
+            <option value="">Selecione...</option>
+            <option value="PlayStation 5">PlayStation 5</option>
+            <option value="Xbox Series X">Xbox Series X</option>
+            <option value="Nintendo Switch">Nintendo Switch</option>
+            <option value="PC">PC</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="genero">Gênero</label>
+          <input type="text" id="genero" name="genero" placeholder="Ex: Ação / Aventura" required>
+        </div>
+
+        <div class="form-group">
+          <label for="preco">Preço (R$)</label>
+          <input type="number" id="preco" name="preco" step="0.01" min="0" placeholder="299.90" required>
+        </div>
+
+        <div class="form-group">
+          <label for="estoque">Estoque</label>
+          <input type="number" id="estoque" name="estoque" min="0" placeholder="10" required>
+        </div>
+
+        <button type="submit" class="btn">Cadastrar Jogo</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Jogos Cadastrados</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Plataforma</th>
+            <th>Gênero</th>
+            <th>Preço</th>
+            <th>Estoque</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (itens.length === 0) { %>
+            <tr>
+              <td colspan="6" class="empty">Nenhum jogo cadastrado.</td>
+            </tr>
+          <% } else { %>
+            <% itens.forEach(item => { %>
+              <tr>
+                <td><%= item.id %></td>
+                <td><%= item.titulo %></td>
+                <td><%= item.plataforma %></td>
+                <td><%= item.genero %></td>
+                <td>R$ <%= Number(item.preco).toFixed(2).replace('.', ',') %></td>
+                <td><%= item.estoque %> un.</td>
+              </tr>
+            <% }) %>
+          <% } %>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</body>
+</html>
